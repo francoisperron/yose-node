@@ -8,7 +8,7 @@
     "npm": "1.*"
   },
   "dependencies": {
-    "flask-router": "0.0.4",
+    "flask-router": "0.0.4"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.3",
