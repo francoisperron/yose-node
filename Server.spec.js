@@ -20,13 +20,13 @@ describe('The server', function () {
             aRequestOn('http://localhost:5000', returnsStatutCode(404, done));
         });
 
-        it('provided with process.env.PORT', function(done){
+        it('provided with process.env.OPENSHIFT_NODEJS_PORT', function(done){
             server.stop();
-            process.env.PORT = 8888;
+            process.env.OPENSHIFT_NODEJS_PORT = 8888;
             server = new Server();
             server.start();
             aRequestOn('http://localhost:8888', returnsStatutCode(404, done));
-            delete process.env.PORT;
+            delete process.env.OPENSHIFT_NODEJS_PORT;
         });
     });
 

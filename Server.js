@@ -3,7 +3,7 @@ var flask_router = require('flask-router');
 
 function Server(){
     this._router = new flask_router();
-    this._port = process.env.PORT || 5000;
+    this._port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
 }
 
 Server.prototype.start = function(){
