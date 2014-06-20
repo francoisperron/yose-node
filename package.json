@@ -1,0 +1,20 @@
+{
+  "name": "yose-node",
+  "version": "0.0.1",
+  "description": "One solution of YoseTheGame in JavaScript",
+  "main": "app.js",
+  "engines": {
+    "node": "0.10.29",
+    "npm": "1.*"
+  },
+  "dependencies": {
+    "flask-router": "0.0.4",
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.3",
+    "request": "^2.36.0"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
