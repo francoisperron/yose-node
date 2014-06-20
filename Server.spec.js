@@ -13,6 +13,8 @@ describe('The server', function () {
 
     afterEach(function () {
         server.stop();
+        delete process.env.OPENSHIFT_NODEJS_PORT;
+        delete process.env.OPENSHIFT_NODEJS_IP;
     });
 
     describe('uses port', function () {
@@ -20,13 +22,26 @@ describe('The server', function () {
             aRequestOn('http://localhost:5000', returnsStatutCode(404, done));
         });
 
-        it('provided with process.env.OPENSHIFT_NODEJS_PORT', function(done){
+        xit('provided with process.env.OPENSHIFT_NODEJS_PORT', function (done) {
             server.stop();
             process.env.OPENSHIFT_NODEJS_PORT = 8888;
             server = new Server();
             server.start();
             aRequestOn('http://localhost:8888', returnsStatutCode(404, done));
-            delete process.env.OPENSHIFT_NODEJS_PORT;
+        });
+    });
+
+    describe('uses ip', function () {
+        it('localhost by default', function (done) {
+            aRequestOn('http://localhost:5000', returnsStatutCode(404, done));
+        });
+
+        xit('provided with process.env.OPENSHIFT_NODEJS_IP', function (done) {
+            server.stop();
+            process.env.OPENSHIFT_NODEJS_IP = '127.0.0.1';
+            server = new Server();
+            server.start();
+            aRequestOn('http://127.0.0.0:8888', returnsStatutCode(404, done));
         });
     });
 
@@ -48,7 +63,7 @@ describe('The server', function () {
 
     function returnsStatutCode(statusCode, done) {
         return function (error, response, body) {
-            if(!error){
+            if (!error) {
                 expect(response.statusCode).toBe(statusCode);
                 done();
             }

@@ -15,6 +15,7 @@
     "request": "^2.36.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node_modules/jasmine-node/bin/jasmine-node --captureExceptions ."
   }
 }
