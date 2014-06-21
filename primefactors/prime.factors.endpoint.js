@@ -1,36 +1,60 @@
 var url = require('url');
-var PrimeFactorDecomposition = require('./prime.factors.decomposition')
+var PrimeFactorDecomposition = require('./prime.factors.decomposition');
 var answerJson = require('../api/answer.json');
 
 function PrimeFactorsEndpoint() {
 }
 
 PrimeFactorsEndpoint.prototype.answer = function (request, response) {
-    var query = url.parse(request.url, true).query;
-    var number = parseInt(query.number);
 
-    if (isNaN(number)) {
-        answerError(response, query.number);
+    var numbers = extractNumbersFromQuery(request);
+    var responseBody = [];
+
+    for (var i = 0; i < numbers.length; i++) {
+        var numberAsString = numbers[i];
+        var number = parseInt(numberAsString);
+
+        if (isNaN(number)) {
+            responseBody.push(answerError(numberAsString));
+        }
+        else if (number > 1000000) {
+            responseBody.push(answerNumberToBigError(number));
+        }
+        else {
+            responseBody.push(answerDecomposition(number));
+        }
     }
-    else if(number > 1000000){
-        answerNumberToBigError(response, number);
-    }
-    else {
-        answerDecomposition(response, number);
+
+    if (responseBody.length == 1) {
+        answerJson(response, responseBody[0]);
+    } else {
+        answerJson(response, responseBody);
     }
 };
 
-function answerError(response, number) {
-    answerJson(response, {number: number, error: "not a number"});
+function extractNumbersFromQuery(request) {
+    var query = url.parse(request.url, true).query;
+
+    if (query.number instanceof Array) {
+        return query.number;
+    } else {
+        var numbers = [];
+        numbers.push(query.number);
+        return numbers;
+    }
 }
 
-function answerNumberToBigError(response, number) {
-    answerJson(response, {number: number, error: "too big number (>1e6)"});
+function answerError(number) {
+    return {number: number, error: "not a number"};
 }
 
-function answerDecomposition(response, number) {
+function answerNumberToBigError(number) {
+    return {number: number, error: "too big number (>1e6)"};
+}
+
+function answerDecomposition(number) {
     var decomposition = new PrimeFactorDecomposition().decompose(number);
-    answerJson(response, {number: number, decomposition: decomposition});
+    return {number: number, decomposition: decomposition};
 }
 
 module.exports = PrimeFactorsEndpoint;

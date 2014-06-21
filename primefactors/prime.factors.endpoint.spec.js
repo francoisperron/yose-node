@@ -38,4 +38,16 @@ describe('The prime factors endpoint', function () {
         requesting('http://localhost:5000/primeFactors?number=1000001',
             returnsElementWithValue('error', 'too big number (>1e6)', done));
     });
+
+    it('accepts several numbers and returns their decomposition', function (done) {
+        requesting('http://localhost:5000/primeFactors?number=9&number=banane&number=1000001', function (error, response, body) {
+            expect(JSON.parse(response.body)[0].number).toEqual(9);
+            expect(JSON.parse(response.body)[0].decomposition).toEqual([3, 3]);
+            expect(JSON.parse(response.body)[1].number).toEqual("banane");
+            expect(JSON.parse(response.body)[1].error).toEqual("not a number");
+            expect(JSON.parse(response.body)[2].number).toEqual(1000001);
+            expect(JSON.parse(response.body)[2].error).toEqual("too big number (>1e6)");
+            done();
+        });
+    });
 });
