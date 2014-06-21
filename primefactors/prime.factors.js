@@ -8,7 +8,7 @@ PrimeFactors.prototype.answer = function (request, response) {
     var number = parseInt(query.number);
 
     if (isNaN(number)) {
-        answerError(number, response);
+        answerError(query.number, response);
     }
     else {
         answerDecomposition(number, response);

@@ -36,6 +36,7 @@ describe('The power of two endpoint', function () {
         request('http://localhost:5000/primeFactors?number=banane', function (error, response, body) {
             expect(response.statusCode).toEqual(200);
             expect(response.headers['content-type']).toEqual('application/json');
+            expect(JSON.parse(response.body).number).toEqual("banane");
             expect(JSON.parse(response.body).error).toEqual("not a number");
             done();
         });
