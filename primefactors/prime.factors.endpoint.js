@@ -6,33 +6,12 @@ function PrimeFactorsEndpoint() {
 }
 
 PrimeFactorsEndpoint.prototype.answer = function (request, response) {
-
-    var numbers = extractNumbersFromQuery(request);
-    var responseBody = [];
-
-    for (var i = 0; i < numbers.length; i++) {
-        var numberAsString = numbers[i];
-        var number = parseInt(numberAsString);
-
-        if (isNaN(number)) {
-            responseBody.push(answerError(numberAsString));
-        }
-        else if (number > 1000000) {
-            responseBody.push(answerNumberToBigError(number));
-        }
-        else {
-            responseBody.push(answerDecomposition(number));
-        }
-    }
-
-    if (responseBody.length == 1) {
-        answerJson(response, responseBody[0]);
-    } else {
-        answerJson(response, responseBody);
-    }
+    var numbers = extractNumbersFromRequest(request);
+    var decompositions = calculateDecomposition(numbers);
+    answerJson(response, render(decompositions));
 };
 
-function extractNumbersFromQuery(request) {
+function extractNumbersFromRequest(request) {
     var query = url.parse(request.url, true).query;
 
     if (query.number instanceof Array) {
@@ -41,6 +20,34 @@ function extractNumbersFromQuery(request) {
         var numbers = [];
         numbers.push(query.number);
         return numbers;
+    }
+}
+
+function calculateDecomposition(numbers) {
+    var decompositions = [];
+
+    for (var i = 0; i < numbers.length; i++) {
+        var numberAsString = numbers[i];
+        var number = parseInt(numberAsString);
+
+        if (isNaN(number)) {
+            decompositions.push(answerError(numberAsString));
+        }
+        else if (number > 1000000) {
+            decompositions.push(answerNumberToBigError(number));
+        }
+        else {
+            decompositions.push(answerDecomposition(number));
+        }
+    }
+    return decompositions;
+}
+
+function render(decompositions) {
+    if (decompositions.length == 1) {
+        return decompositions[0];
+    } else {
+        return decompositions;
     }
 }
 
