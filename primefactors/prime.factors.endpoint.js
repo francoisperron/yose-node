@@ -1,9 +1,9 @@
 var url = require('url');
 
-function PrimeFactors() {
+function PrimeFactorsEndpoint() {
 }
 
-PrimeFactors.prototype.answer = function (request, response) {
+PrimeFactorsEndpoint.prototype.answer = function (request, response) {
     var query = url.parse(request.url, true).query;
     var number = parseInt(query.number);
 
@@ -38,4 +38,4 @@ function decompose(number) {
     return decomposition;
 }
 
-module.exports = PrimeFactors;
+module.exports = PrimeFactorsEndpoint;

@@ -1,14 +1,14 @@
 var Server = require('./api/server');
-var Ping = require('./ping/ping');
-var PrimeFactors = require('./primefactors/prime.factors');
+var PingEndpoint = require('./ping/ping.endpoint');
+var PrimeFactorsEndpoint = require('./primefactors/prime.factors.endpoint');
 
 function Application(){
 }
 
 Application.prototype.start = function(){
     this.server = new Server();
-    this.server.addGet('/ping', new Ping().answer);
-    this.server.addGet('/primeFactors', new PrimeFactors().answer);
+    this.server.addGet('/ping', new PingEndpoint().answer);
+    this.server.addGet('/primeFactors', new PrimeFactorsEndpoint().answer);
     this.server.start();
 };
 
