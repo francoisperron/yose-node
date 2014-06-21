@@ -14,11 +14,20 @@ describe('The power of two endpoint', function () {
         app.stop();
     });
 
-    it('returns the receiving number', function (done) {
+    it('returns the received number', function (done) {
         request('http://localhost:5000/primeFactors?number=16', function (error, response, body) {
-            expect(response.statusCode).toBe(200);
-            expect(response.headers['content-type']).toBe('application/json');
-            expect(response.body).toBe(JSON.stringify({number:16}));
+            expect(response.statusCode).toEqual(200);
+            expect(response.headers['content-type']).toEqual('application/json');
+            expect(JSON.parse(response.body).number).toEqual(16);
+            done();
+        });
+    });
+
+    it('returns the number decomposition', function (done) {
+        request('http://localhost:5000/primeFactors?number=32', function (error, response, body) {
+            expect(response.statusCode).toEqual(200);
+            expect(response.headers['content-type']).toEqual('application/json');
+            expect(JSON.parse(response.body).decomposition).toEqual([2, 2, 2, 2, 2]);
             done();
         });
     });
