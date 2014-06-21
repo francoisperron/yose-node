@@ -12,6 +12,9 @@ PrimeFactorsEndpoint.prototype.answer = function (request, response) {
     if (isNaN(number)) {
         answerError(response, query.number);
     }
+    else if(number > 1000000){
+        answerNumberToBigError(response, number);
+    }
     else {
         answerDecomposition(response, number);
     }
@@ -19,6 +22,10 @@ PrimeFactorsEndpoint.prototype.answer = function (request, response) {
 
 function answerError(response, number) {
     answerJson(response, {number: number, error: "not a number"});
+}
+
+function answerNumberToBigError(response, number) {
+    answerJson(response, {number: number, error: "too big number (>1e6)"});
 }
 
 function answerDecomposition(response, number) {
