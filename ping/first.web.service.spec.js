@@ -1,6 +1,7 @@
 /*global describe, beforeEach, afterEach, it, expect */
-var request = require('request');
 var Application = require('../application');
+var requesting = require('../api/requesting');
+var returnsElementWithValue = require('../api/returns.element.with.value');
 
 describe('First web service', function () {
 
@@ -14,12 +15,8 @@ describe('First web service', function () {
         app.stop();
     });
 
-    it('answers json {alive:true} on /ping', function (done) {
-        request('http://localhost:5000/ping', function (error, response, body) {
-            expect(response.statusCode).toBe(200);
-            expect(response.body).toBe(JSON.stringify({alive:true}));
-            expect(response.headers['content-type']).toBe('application/json');
-            done();
-        });
+    it('answers alive:true on /ping', function (done) {
+        requesting('http://localhost:5000/ping',
+            returnsElementWithValue('alive', true, done));
     });
 });

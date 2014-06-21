@@ -9,18 +9,18 @@ PrimeFactorsEndpoint.prototype.answer = function (request, response) {
     var number = parseInt(query.number);
 
     if (isNaN(number)) {
-        answerError(query.number, response);
+        answerError(response, query.number);
     }
     else {
-        answerDecomposition(number, response);
+        answerDecomposition(response, number);
     }
 };
 
-function answerError(number, response) {
+function answerError(response, number) {
     answerJson(response, {number: number, error: "not a number"});
 }
 
-function answerDecomposition(number, response) {
+function answerDecomposition(response, number) {
     var decomposition = decompose(number);
     answerJson(response, {number: number, decomposition: decomposition});
 }
