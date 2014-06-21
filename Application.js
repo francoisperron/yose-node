@@ -1,6 +1,6 @@
-var Server = require('./Server');
-var Ping = require('./Ping');
-var PrimeFactors = require('./PrimeFactors');
+var Server = require('./api/server');
+var Ping = require('./ping/ping');
+var PrimeFactors = require('./primefactors/prime.factors');
 
 function Application(){
 }

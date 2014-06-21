@@ -2,7 +2,7 @@
   "name": "yose-node",
   "version": "0.0.1",
   "description": "One solution of YoseTheGame in JavaScript",
-  "main": "app.js",
+  "main": "run.js",
   "engines": {
     "node": "0.10.29",
     "npm": "1.*"
@@ -15,7 +15,7 @@
     "request": "^2.36.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node run.js",
     "test": "node_modules/jasmine-node/bin/jasmine-node --captureExceptions ."
   }
 }

@@ -1,6 +1,6 @@
 /*global describe, beforeEach, afterEach, it, expect */
 var request = require('request');
-var Server = require('./Server');
+var Server = require('./server');
 
 describe('The server', function () {
 

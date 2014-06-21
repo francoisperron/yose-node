@@ -1,6 +1,6 @@
 /*global describe, beforeEach, afterEach, it, expect */
 var request = require('request');
-var Application = require('../../Application');
+var Application = require('../application');
 
 describe('First web service', function () {
 
