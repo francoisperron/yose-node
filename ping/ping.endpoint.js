@@ -1,10 +1,10 @@
+var answerJson = require('../api/answer.json');
+
 function PingEndpoint() {
 }
 
 PingEndpoint.prototype.answer = function (request, response) {
-    response.setHeader('Content-Type', 'application/json');
-    response.write(JSON.stringify({alive: true}));
-    response.end();
+    answerJson(response, {alive: true});
 };
 
 module.exports = PingEndpoint;

@@ -1,4 +1,5 @@
 var url = require('url');
+var answerJson = require('../api/answer.json');
 
 function PrimeFactorsEndpoint() {
 }
@@ -16,17 +17,12 @@ PrimeFactorsEndpoint.prototype.answer = function (request, response) {
 };
 
 function answerError(number, response) {
-    response.setHeader('Content-Type', 'application/json');
-    response.write(JSON.stringify({number: number, error: "not a number"}));
-    response.end();
+    answerJson(response, {number: number, error: "not a number"});
 }
 
 function answerDecomposition(number, response) {
     var decomposition = decompose(number);
-
-    response.setHeader('Content-Type', 'application/json');
-    response.write(JSON.stringify({number: number, decomposition: decomposition}));
-    response.end();
+    answerJson(response, {number: number, decomposition: decomposition});
 }
 
 function decompose(number) {
