@@ -1,4 +1,5 @@
 var url = require('url');
+var PrimeFactorDecomposition = require('./prime.factors.decomposition')
 var answerJson = require('../api/answer.json');
 
 function PrimeFactorsEndpoint() {
@@ -21,17 +22,8 @@ function answerError(response, number) {
 }
 
 function answerDecomposition(response, number) {
-    var decomposition = decompose(number);
+    var decomposition = new PrimeFactorDecomposition().decompose(number);
     answerJson(response, {number: number, decomposition: decomposition});
-}
-
-function decompose(number) {
-    var decomposition = [];
-    while (number >= 2) {
-        decomposition.push(2);
-        number = number / 2;
-    }
-    return decomposition;
 }
 
 module.exports = PrimeFactorsEndpoint;
