@@ -40,10 +40,10 @@ describe('The prime factors endpoint', function () {
     });
 
     it('returns an error when received number is < 1', function (done) {
-        requesting('http://localhost:5000/primeFactors?number=0',
-            returnsElementWithValue('number', 0, done));
-        requesting('http://localhost:5000/primeFactors?number=0',
-            returnsElementWithValue('error', '0 is not an integer > 1', done));
+        requesting('http://localhost:5000/primeFactors?number=1',
+            returnsElementWithValue('number', 1, done));
+        requesting('http://localhost:5000/primeFactors?number=1',
+            returnsElementWithValue('error', '1 is not an integer > 1', done));
     });
 
     it('accepts several numbers and returns their decomposition', function (done) {

@@ -2,7 +2,7 @@ function NegativeNumberResponse() {
 }
 
 NegativeNumberResponse.prototype.matches = function (number) {
-    return parseInt(number) < 1;
+    return parseInt(number) <= 1;
 };
 
 NegativeNumberResponse.prototype.respond = function (number) {
