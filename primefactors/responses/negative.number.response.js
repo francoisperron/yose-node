@@ -6,7 +6,7 @@ NegativeNumberResponse.prototype.matches = function (number) {
 };
 
 NegativeNumberResponse.prototype.respond = function (number) {
-    return {number: parseInt(number), error: 'is not an integer > 1'};
+    return {number: parseInt(number), error: number + ' is not an integer > 1'};
 };
 
 module.exports = NegativeNumberResponse;
