@@ -1,11 +1,13 @@
 var NotANumberResponse = require('./not.a.number.response');
 var TooBigNumberResponse = require('./too.big.number.response');
+var NegativeNumberResponse = require('./negative.number.response');
 var DecompositionResponse = require('./decomposition.response');
 
 function PrimeFactorsResponseFactory() {
     this.responses = [
         new NotANumberResponse(),
         new TooBigNumberResponse(),
+        new NegativeNumberResponse(),
         new DecompositionResponse()
     ]
 }

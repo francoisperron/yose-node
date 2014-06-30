@@ -2,7 +2,7 @@ function NotANumberResponse() {
 }
 
 NotANumberResponse.prototype.matches = function (number) {
-    return isNaN(parseInt(number));
+    return isNaN(number);
 };
 
 NotANumberResponse.prototype.respond = function (number) {

@@ -26,9 +26,9 @@ describe('The prime factors endpoint', function () {
     });
 
     it('returns an error when received number is not a number', function (done) {
-        requesting('http://localhost:5000/primeFactors?number=banane',
-            returnsElementWithValue('number', 'banane', done));
-        requesting('http://localhost:5000/primeFactors?number=banane',
+        requesting('http://localhost:5000/primeFactors?number=1banane',
+            returnsElementWithValue('number', '1banane', done));
+        requesting('http://localhost:5000/primeFactors?number=1banane',
             returnsElementWithValue('error', 'not a number', done));
     });
 
@@ -37,6 +37,13 @@ describe('The prime factors endpoint', function () {
             returnsElementWithValue('number', 1000001, done));
         requesting('http://localhost:5000/primeFactors?number=1000001',
             returnsElementWithValue('error', 'too big number (>1e6)', done));
+    });
+
+    it('returns an error when received number is < 1', function (done) {
+        requesting('http://localhost:5000/primeFactors?number=0',
+            returnsElementWithValue('number', 0, done));
+        requesting('http://localhost:5000/primeFactors?number=0',
+            returnsElementWithValue('error', 'is not an integer > 1', done));
     });
 
     it('accepts several numbers and returns their decomposition', function (done) {
